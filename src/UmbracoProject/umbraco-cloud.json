@@ -1,7 +1,17 @@
 {
   "Deploy": {
     "Project": {
-      "Workspaces": []
+      "Name": "loadbalance github gcloud clean",
+      "Alias": "loadbalance-github-gcloud-clean",
+      "Id": "0115d5df-fbe0-4b97-ab63-f2ebf027552a",
+      "Workspaces": [
+        {
+          "Id": "00a21ade-8228-4b21-a721-9572471630cf",
+          "Name": "Live",
+          "Type": "live",
+          "Url": "https://loadbalance-github-gcloud-clean.euwest01.umbraco.io"
+        }
+      ]
     },
     "Settings": {}
   },

@@ -1,0 +1,14 @@
+{
+  "Name": "TvShow",
+  "Alias": "TvShow",
+  "File": "umb://template-file/TvShow.cshtml",
+  "Udi": "umb://template/864d9aad83d6473cb3869ffd1a6215f3",
+  "Dependencies": [
+    {
+      "Udi": "umb://template-file/TvShow.cshtml",
+      "Ordering": true
+    }
+  ],
+  "__type": "Umbraco.Deploy.Infrastructure,Umbraco.Deploy.Infrastructure.Artifacts.TemplateArtifact",
+  "__version": "13.0.3"
+}

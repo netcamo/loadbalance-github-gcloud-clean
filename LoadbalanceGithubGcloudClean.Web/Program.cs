@@ -1,11 +1,33 @@
+using LoadBalanceGithubGcloudClean.Web.ServerRoleAccessors;
+using Umbraco.Cms.Infrastructure.DependencyInjection;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.CreateUmbracoBuilder()
+
+var umbracoBuilder = builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
     .AddDeliveryApi()
-    .AddComposers()
-    .Build();
+    .AddComposers();
+
+if (builder.Environment.EnvironmentName.Equals("Subscriber"))
+{
+    umbracoBuilder.SetServerRegistrar<SubscriberServerRoleAccessor>()
+        .AddAzureBlobMediaFileSystem()
+        .AddAzureBlobImageSharpCache();
+}
+else if (builder.Environment.IsProduction())
+{
+    umbracoBuilder.SetServerRegistrar<SchedulingPublisherServerRoleAccessor>();
+    //RecurringJob.AddOrUpdate<TvMazeUtility>("MoveTvShowsFromTvMazeToUmbraco", x => x.MoveTvShowsFromTvMazeToUmbraco(), Cron.Monthly);
+    
+}
+else
+{
+    umbracoBuilder.SetServerRegistrar<SingleServerRoleAccessor>();
+}
+
+umbracoBuilder.Build();
 
 WebApplication app = builder.Build();
 

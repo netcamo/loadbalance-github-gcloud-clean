@@ -1,4 +1,6 @@
+using Hangfire;
 using LoadBalanceGithubGcloudClean.Web.ServerRoleAccessors;
+using LoadBalanceGithubGcloudClean.Web.TvMazeShow;
 using Umbraco.Cms.Infrastructure.DependencyInjection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -19,7 +21,7 @@ if (builder.Environment.EnvironmentName.Equals("Subscriber"))
 else if (builder.Environment.IsProduction())
 {
     umbracoBuilder.SetServerRegistrar<SchedulingPublisherServerRoleAccessor>();
-    //RecurringJob.AddOrUpdate<TvMazeUtility>("MoveTvShowsFromTvMazeToUmbraco", x => x.MoveTvShowsFromTvMazeToUmbraco(), Cron.Monthly);
+    RecurringJob.AddOrUpdate<TvMazeUtility>("MoveTvShowsFromTvMazeToUmbraco", x => x.MoveTvShowsFromTvMazeToUmbraco(), Cron.Monthly);
     
 }
 else

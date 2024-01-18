@@ -30,5 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 		.gitignore = .gitignore
 		.gitattributes = .gitattributes
 		LoadbalanceGithubGcloudClean.Web\umbraco-cloud.json = LoadbalanceGithubGcloudClean.Web\umbraco-cloud.json
+		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject

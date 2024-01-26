@@ -4,37 +4,47 @@ namespace LoadbalanceGithubGcloudClean.Web.GCP;
 public class MetadataService
 {
     private readonly IHttpClientFactory _factory;
+	private readonly ILogger<MetadataService> _logger;
 
 
-    public MetadataService(
-        IHttpClientFactory factory)
+	public MetadataService(
+        IHttpClientFactory factory,
+		ILogger<MetadataService> logger)
     {
         _factory = factory;
+        _logger = logger;
     }
 
 
     public async Task<string> GetRegion()
     {
-        var client = _factory.CreateClient();
-
-        client.DefaultRequestHeaders.Add("Metadata-Flavor", "Google");
-        client.BaseAddress = new Uri("http://metadata.google.internal/");
-
-
-        var response = await client
-            .GetAsync($"computeMetadata/v1/instance/region");
-
-        if (response.IsSuccessStatusCode)
+        try 
         {
-            var content = await response.Content.ReadAsStringAsync();
-            Console.WriteLine((await response.Content.ReadAsStringAsync()).ToString());
-            return content;
-        }
+            var client = _factory.CreateClient();
 
-        else
+            client.DefaultRequestHeaders.Add("Metadata-Flavor", "Google");
+            client.BaseAddress = new Uri("http://metadata.google.internal/");
+
+
+            var response = await client
+                .GetAsync($"computeMetadata/v1/instance/region");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                Console.WriteLine((await response.Content.ReadAsStringAsync()).ToString());
+                return content;
+            }
+
+            else
+            {
+                _logger.LogError("Some error while getting data from metadata");
+                return "Unknown";
+            }
+        } catch (Exception ex) 
         {
-            Console.WriteLine("Some error while getting data from metadata");
-            return "Unknown";
+            _logger.LogError(ex, "Some error while getting data from metadata");
         }
+        return "ERROR";
     }
 }

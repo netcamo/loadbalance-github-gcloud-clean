@@ -1,9 +1,11 @@
-﻿@using Umbraco.Cms.Core.Sync
+﻿@using LoadbalanceGithubGcloudClean.Web.GCP
+@using Umbraco.Cms.Core.Sync
 @using Umbraco.Cms.Web.Common.PublishedModels;
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Home>
 @using Umbraco.Cms.Core.Models
 @inject IServerRoleAccessor _serverRoleAccessor;
+@inject MetadataService _metadataService;
 @model Home
 
 @{
@@ -16,7 +18,7 @@
 
 @if (shows?.Any() ?? false)
 {
-    <h1>There are currently @shows.Count() tv shows in @_serverRoleAccessor.CurrentServerRole</h1>
+    <h1>There are currently @shows.Count() tv shows in @_serverRoleAccessor.CurrentServerRole : @_metadataService.GetRegion().Result</h1>
 }
 else {
     <h1>There are no shows in @_serverRoleAccessor.CurrentServerRole</h1>

@@ -1,4 +1,5 @@
 using Hangfire;
+using LoadbalanceGithubGcloudClean.Web.GCP;
 using LoadBalanceGithubGcloudClean.Web.ServerRoleAccessors;
 using LoadBalanceGithubGcloudClean.Web.TvMazeShow;
 using Umbraco.Cms.Infrastructure.DependencyInjection;
@@ -11,6 +12,8 @@ var umbracoBuilder = builder.CreateUmbracoBuilder()
     .AddWebsite()
     .AddDeliveryApi()
     .AddComposers();
+
+builder.Services.AddScoped<MetadataService>();
 
 if (builder.Environment.EnvironmentName.Equals("Subscriber"))
 {

@@ -35,8 +35,12 @@ public class MetadataService
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine((await response.Content.ReadAsStringAsync()).ToString());
-                    return ($": Region {content}");
+                    Console.WriteLine(content);
+                    string[] parts = content.Split('/');
+                    
+                    // Get the last element of the array
+                    string region = parts[^1];
+                    return ($": Region {region}");
                 }
 
                 else

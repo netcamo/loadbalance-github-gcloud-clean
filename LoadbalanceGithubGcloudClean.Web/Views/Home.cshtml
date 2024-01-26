@@ -6,10 +6,10 @@
 @inject IServerRoleAccessor _serverRoleAccessor;
 @model Home
 
-
 @{
     var shows = Model.Children<TvShow>();
     var latestShow = shows?.LastOrDefault();
+    
 }   
 
 <h1>This is Home Page</h1>

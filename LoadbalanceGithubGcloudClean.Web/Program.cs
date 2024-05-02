@@ -54,4 +54,3 @@ app.UseUmbraco()
     });
 
 await app.RunAsync();
-//run deployment
